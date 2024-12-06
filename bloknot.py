@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter import filedialog, messagebox
+from tkinter import simpledialog
+
 
 
 def new_file():
@@ -27,14 +29,22 @@ def save_file():
         root.title(f"{file_path} - Текстовый редактор")
 
 def cut_text():
-    text_fild.event_generate("<<Cut>>")  # Используем text_fild вместо text_area
+    text_fild.event_generate("<<Cut>>")  
 
 def copy_text():
-    text_fild.event_generate("<<Copy>>")  # Используем text_fild вместо text_area
+    text_fild.event_generate("<<Copy>>")  
 
 def paste_text():
-    text_fild.event_generate("<<Paste>>")  # Используем text_fild вместо text_area
+    text_fild.event_generate("<<Paste>>") 
 
+def change_window_size():
+    try:
+        # Запрос ввода нового размера окна
+        new_width = int(simpledialog.askstring("Ввод", "Введите ширину окна:"))
+        new_height = int(simpledialog.askstring("Ввод", "Введите высоту окна:"))
+        root.geometry(f"{new_width}x{new_height}")
+    except (ValueError, TypeError):  # Учитываем пустой ввод или неправильные данные
+        messagebox.showerror("Ошибка", "Введите корректные числовые значения!")
 
 root=Tk()
 root.title('Текстовый редактор')
@@ -44,7 +54,7 @@ main_menu=Menu(root)
 
 
 # файл
-file_menu=Menu(main_menu, tearoff=0)
+file_menu = Menu(main_menu, tearoff=0)
 file_menu.add_command(label="Новый", command=new_file)
 file_menu.add_command(label='Открыть', command=open_file)
 file_menu.add_command(label='Сохранить', command=save_file)
@@ -58,8 +68,8 @@ view_menu.add_command(label="Копировать", command=copy_text)
 view_menu.add_command(label="Вставить", command=paste_text)
 
 # Меню "Настройки"
-settings_menu = tk.Menu(menu_bar, tearoff=0)
-settings_menu.add_command(label="Изменить размер окна", command=self.change_window_size)
+settings_menu = Menu(main_menu, tearoff=0)
+settings_menu.add_command(label="Изменить размер окна", command=change_window_size)
 
 
 main_menu.add_cascade(label='Файл',menu=file_menu)
