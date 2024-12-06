@@ -57,12 +57,14 @@ view_menu.add_command(label="Вырезать", command=cut_text)
 view_menu.add_command(label="Копировать", command=copy_text)
 view_menu.add_command(label="Вставить", command=paste_text)
 
-
+# Меню "Настройки"
+settings_menu = tk.Menu(menu_bar, tearoff=0)
+settings_menu.add_command(label="Изменить размер окна", command=self.change_window_size)
 
 
 main_menu.add_cascade(label='Файл',menu=file_menu)
 main_menu.add_cascade(label='Редактировать',menu=view_menu)
-
+main_menu.add_cascade(label="Настройки", menu=settings_menu)
 
 root.config(menu=main_menu)
 
