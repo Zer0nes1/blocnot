@@ -1,4 +1,15 @@
 from tkinter import *
+from tkinter import filedialog, messagebox
+
+
+def new_file():
+    text_fild.delete(1.0, END)  # Очистка текстового поля
+    root.title("Новый файл - Текстовый редактор")
+
+def notepad_exit():
+    answer=messagebox.askokcancel('Выход','Вы точно хотите выйти?')
+    if answer:
+        root.destroy()
 
 root=Tk()
 root.title('Текстовый редактор')
@@ -9,12 +20,22 @@ main_menu=Menu(root)
 
 # файл
 file_menu=Menu(main_menu, tearoff=0)
+file_menu.add_command(label="Новый", command=new_file)
 file_menu.add_command(label='Открыть')
 file_menu.add_command(label='Сохранить')
-file_menu.add_command(label='Закрыть')
+file_menu.add_command(label='Закрыть',command=notepad_exit)
 root.config(menu=file_menu)
 
+# редактировать
+view_menu=Menu(main_menu,tearoff=0)
+
+
+
+
+
 main_menu.add_cascade(label='Файл',menu=file_menu)
+main_menu.add_cascade(label='Редактировать',menu=view_menu)
+
 
 root.config(menu=main_menu)
 
