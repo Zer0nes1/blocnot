@@ -26,6 +26,16 @@ def save_file():
             file.write(text_fild.get(1.0, END))
         root.title(f"{file_path} - Текстовый редактор")
 
+def cut_text():
+    text_fild.event_generate("<<Cut>>")  # Используем text_fild вместо text_area
+
+def copy_text():
+    text_fild.event_generate("<<Copy>>")  # Используем text_fild вместо text_area
+
+def paste_text():
+    text_fild.event_generate("<<Paste>>")  # Используем text_fild вместо text_area
+
+
 root=Tk()
 root.title('Текстовый редактор')
 root.geometry('600x700')
@@ -43,7 +53,9 @@ root.config(menu=file_menu)
 
 # редактировать
 view_menu=Menu(main_menu,tearoff=0)
-
+view_menu.add_command(label="Вырезать", command=cut_text)
+view_menu.add_command(label="Копировать", command=copy_text)
+view_menu.add_command(label="Вставить", command=paste_text)
 
 
 
