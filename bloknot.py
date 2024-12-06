@@ -4,6 +4,23 @@ root=Tk()
 root.title('Текстовый редактор')
 root.geometry('600x700')
 
+main_menu=Menu(root)
+
+
+# файл
+file_menu=Menu(main_menu, tearoff=0)
+file_menu.add_command(label='Открыть')
+file_menu.add_command(label='Сохранить')
+file_menu.add_command(label='Закрыть')
+root.config(menu=file_menu)
+
+main_menu.add_cascade(label='Файл',menu=file_menu)
+
+root.config(menu=main_menu)
+
+
+
+
 f_text = Frame(root)
 f_text.pack(fill=BOTH, expand=1)
 
