@@ -19,6 +19,12 @@ def open_file():
             text_fild.insert(1.0, file.read())
         root.title(f"{file_path} - Текстовый редактор")
 
+def save_file():
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Текстовые файлы", "*.txt")])
+    if file_path:
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(text_fild.get(1.0, END))
+        root.title(f"{file_path} - Текстовый редактор")
 
 root=Tk()
 root.title('Текстовый редактор')
@@ -31,7 +37,7 @@ main_menu=Menu(root)
 file_menu=Menu(main_menu, tearoff=0)
 file_menu.add_command(label="Новый", command=new_file)
 file_menu.add_command(label='Открыть', command=open_file)
-file_menu.add_command(label='Сохранить')
+file_menu.add_command(label='Сохранить', command=save_file)
 file_menu.add_command(label='Закрыть',command=notepad_exit)
 root.config(menu=file_menu)
 
