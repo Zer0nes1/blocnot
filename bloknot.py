@@ -3,13 +3,22 @@ from tkinter import filedialog, messagebox
 
 
 def new_file():
-    text_fild.delete(1.0, END)  # Очистка текстового поля
+    text_fild.delete('1.0', END)  # Очистка текстового поля
     root.title("Новый файл - Текстовый редактор")
 
 def notepad_exit():
     answer=messagebox.askokcancel('Выход','Вы точно хотите выйти?')
     if answer:
         root.destroy()
+
+def open_file():
+    file_path = filedialog.askopenfilename(filetypes=[("Текстовые файлы", "*.txt")])
+    if file_path:
+        with open(file_path, "r", encoding="utf-8") as file:
+            text_fild.delete(1.0, END)
+            text_fild.insert(1.0, file.read())
+        root.title(f"{file_path} - Текстовый редактор")
+
 
 root=Tk()
 root.title('Текстовый редактор')
@@ -21,7 +30,7 @@ main_menu=Menu(root)
 # файл
 file_menu=Menu(main_menu, tearoff=0)
 file_menu.add_command(label="Новый", command=new_file)
-file_menu.add_command(label='Открыть')
+file_menu.add_command(label='Открыть', command=open_file)
 file_menu.add_command(label='Сохранить')
 file_menu.add_command(label='Закрыть',command=notepad_exit)
 root.config(menu=file_menu)
